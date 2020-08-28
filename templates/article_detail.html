@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %} {{get_article.name}} {% endblock %} 
+
+{% block content %} 
+	<div class="articles">
+
+		<h1> Статья: {{get_article.name}} </h1>
+	
+		<a href="/"> Вернуться назад на главную </a>		
+	
+		<p> Дата создания : {{get_article.create_date}} <a href={% url 'edit_page' %}> Редактирование, удаление статьи</a> </p>		
+		<p> Название : {{get_article.name}} </p>		
+		<p> Текст: {{get_article.text}} </p>
+
+
+	</div>
+{% endblock %} 

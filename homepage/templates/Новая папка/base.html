@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<title>Охранное предприятие Бетмена</title>
+		<meta charset="utf-8 "name="keywords" content="Удары, Наказание, Возмездие, блог"> 
+		<meta name="description" content="Блог о методах работы охранного предприятия Бетмена">
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'CSS/batman.CSS'%}"">
+		<!--<link rel="stylesheet" href="batman.CSS">--> 
+	
+	<body class="container"><!--class="background"--> 
+		<header>
+			<h1>
+			Охранное предприятие Бетмена
+			</h1>
+		</header>
+	
+	
+	
+	<main>
+	<nav>
+        Навигация
+	</nav> 
+	
+	</div>	
+		
+    <div class="articles"> 
+        {% block content %}
+            
+			
+        {% endblock %}
+    </div>
+	</main>
+		
+    <footer>
+		Все права принадлежит Брюсу Уэйну и Уэйн Энтерпрайз (Wayne Enterprise) 
+    </footer>
+	</body>
+</html>
+		

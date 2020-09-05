@@ -9,7 +9,8 @@
 	
 	{% if messages %}
 	<div>
-		{% for message in messges %}
+		{% for message in messages %}
+		<p>{{message}}</p>
 		{% endfor %}
 	</div>
 	{% endif %}
@@ -23,11 +24,11 @@
 
     {% endif %}
 
-    <p class="mt-4">Страница редактирования</p>
+    <p>Страница редактирования</p>
 
     <p><a href="{% url 'edit_page' %}">Вернуться назад</a></p>
 
-    <form id="update_data" method="post">
+    <form id="update_data" class="form" method="post">
 
             {% csrf_token %}
 
@@ -35,38 +36,36 @@
 
         </form>
 
-    <button form="update_data" type="submit" class="btn btn-primary">Обновить</button>
+    <button form="update_data" type="submit" class="form_button">Обновить</button>
 
     {% else %}
 
     <table class="table table-bordered mt-4">
 
   <thead>
-
     <tr>
-
       <th scope="col">id</th>
       <th scope="col">Дата создания</th>
+	  <th scope="col">Дата обновления</th>
       <th scope="col">Название</th>
       <th scope="col">Редактирование</th>
       <th scope="col">Удаление</th>
-
     </tr>
-
   </thead>
 
   <tbody>
 
     {% for article in list_articles %}
 
-    <tr> {% if article.id|slugify == request.GET.id%}  {% endif %}
-      <th>{{article.id}}</th>
-      <td>{{article.create_date}}</td>
-      <td>{{article.name}}</td>
-      <td><a href="{% url 'update_page' article.id %}">редактировать</a></td>
-      <td>
+    <tr> {% if article.id == request.GET.id|add:'0' %} <style="background: red"> {% endif %}
+		<th>{{article.id}}</th>
+		<td>{{article.create_date}}</td>
+		<td>{{article.update_date}}</td> 
+		<td>{{article.name}}</td>
+		<td><a href="{% url 'update_page' article.id %}">редактировать</a></td>
+		<td>
 		<form id="delete_form" action="{% url 'delete_page' article.id %}" method="post"> {% csrf_token %} </form>	 
-			<a href="javascript:void()" onclick="delete_question">удалить</a>
+			<a href="javascript:void()" onclick="delete_question()">удалить</a>
 			<script>
 				function delete_question() {
 					if (confirm("Вы уверены?")) {
@@ -74,14 +73,12 @@
 					}
 				}	
 			</script>
-			
-			</td>
+		</td>
     </tr>
 
     {% endfor %}
 
   </tbody>
-
 </table>
 
 {% endif %}
@@ -98,7 +95,7 @@
 
         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
 
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="form_button">
 
           <span aria-hidden="true">&times;</span>
 
@@ -108,7 +105,7 @@
 
       <div class="modal-body">
 
-        <form id="add_form" method="post">
+        <form id="add_form" class="form" method="post">
 
             {% csrf_token %}
 
@@ -120,9 +117,9 @@
 
       <div class="modal-footer">
 
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">закрыть</button>
+        <button type="button" class="form_button" data-dismiss="modal">закрыть</button>
 
-        <button form="add_form" type="submit" class="btn btn-primary">Добавить</button>
+        <button form="add_form" type="submit" class="form_button">Добавить</button>
 
       </div>
 

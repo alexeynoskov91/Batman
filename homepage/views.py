@@ -18,21 +18,16 @@ class ArticlesDetailView(DetailView):
     model = Articles
     template_name = 'article_detail.html'
     context_object_name = 'get_article'
-    # pk_url_kwarg = "post_id"
-    # slug_url_kwarg = 'slug'
-    # query_pk_and_slug = True
 
 class CustomSuccessMessageMixin:
     @property
     def success_msg(self):
         return False
-        
     def form_valid(self,form):
         messages.success(self.request, self.success_msg)
         return super().form_valid(form)
     def get_success_url(self):
         return '%s?id=%s' % (self.success_url, self.object.id)
-
 
 
 class ArticleCreateView(CustomSuccessMessageMixin, CreateView):
@@ -46,7 +41,7 @@ class ArticleCreateView(CustomSuccessMessageMixin, CreateView):
         return super().get_context_data(**kwargs)
         
 
-class ArticleUpdateView(CustomSuccessMessageMixin,UpdateView):
+class ArticleUpdateView(CustomSuccessMessageMixin, UpdateView):
     model = Articles
     template_name = 'edit_page.html'
     form_class = ArticleForm
@@ -62,7 +57,6 @@ class ArticleDeleteView(DeleteView):
     template_name = 'edit_page.html'
     success_url = reverse_lazy('edit_page')
     success_msg = 'Запись удалена'
-    
     def post(self,request,*args,**kwargs):
         messages.success(self.request, self.success_msg)
         return super().post(request)    

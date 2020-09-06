@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+
+
 {% block content %} 
+{% include 'include/header.html' %}
 	<div class="articles">
 		<div class="left-ads-display col-lg-8">
                     <div class="layout">
@@ -24,14 +27,18 @@
                                 <li style="list-style: none">
                                     <span><b>Режиссер:</b>
                                         {% for director in movie.directors.all %}
-                                            {{ director.name }}
-                                        {% endfor %}
+											<a href="{{ director.get_absolute_url }}">
+												{{ director.name }}
+											</a>
+										{% endfor %}
                                     </span>
                                 </li>
                                 <li style="list-style: none"><span><b>Актеры:</b>
-                                    {% for actor in movie.actors.all %}
-                                        {{ actor.name }}
-                                    {% endfor %}
+									{% for actor in movie.actors.all %}
+										<a href="{{ actor.get_absolute_url }}">
+											{{ actor.name }}
+											</a>
+									{% endfor %}
                                 </span>
                                 </li>
                                 <li style="list-style: none"><span><b>Жанр:</b>
@@ -210,6 +217,9 @@
                     
 		</div>
 	</div>
+	
+	{% include 'include/sidebar.html' %}
+	
 	<script>
         function addReview(name, id) {
             document.getElementById("contactparent").value = id;

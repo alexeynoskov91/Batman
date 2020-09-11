@@ -1,6 +1,6 @@
 from django.db import models
-from datetime import date
-import datetime
+from datetime import date, datetime
+
 from django.urls import reverse
 
 
@@ -109,11 +109,12 @@ class RatingStar(models.Model):
     value = models.SmallIntegerField("Значение", default=0)
 
     def __str__(self):
-        return self.value
+        return f'{self.value}'
 
     class Meta:
         verbose_name = "Звезда рейтинга"
         verbose_name_plural = "Звезды рейтинга"
+        ordering = ["-value"]
 
 
 class Rating(models.Model):

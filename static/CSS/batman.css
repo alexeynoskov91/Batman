@@ -193,6 +193,16 @@ aside:hover {
 ul {
   list-style: none;
   padding-left: 0;
+  /* display:block; */
+}
+
+/* .list li { */
+  /* float: left; */
+/* } */
+/* или */
+.list li {
+  display: inline-block;
+  width: 250px;
 }
 
 p {
@@ -218,6 +228,10 @@ footer {
 .small_cadrs {
 	max-width: 150px
 	
+}
+
+.row {
+	display: inline;
 }
 
 /* Checkbox stars */

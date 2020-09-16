@@ -193,16 +193,17 @@ aside:hover {
 ul {
   list-style: none;
   padding-left: 0;
-  /* display:block; */
+  display:block;
 }
 
 /* .list li { */
   /* float: left; */
 /* } */
 /* или */
-.list li {
-  display: inline-block;
-  width: 250px;
+li {
+	  display: inline-block;
+	  width: 250px;
+	  vertical-align: top;
 }
 
 p {

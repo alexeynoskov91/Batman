@@ -38,10 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     'homepage',
     'movies',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'snowpenguin.django.recaptcha3',
     
 ]
 
@@ -53,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
 ]
 
 ROOT_URLCONF = 'batman.urls'
@@ -201,3 +205,10 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
+
+RECAPTCHA_PUBLIC_KEY = "6LftrMsZAAAAAO37lTdYdR1SzdUz4j8CnDopgkLE"
+RECAPTCHA_PRIVATE_KEY = "6LftrMsZAAAAABu7LYwHru6-__B8yLqsQyhqWmfO"
+RECAPTCHA_DEFAULT_ACTION = 'generic'
+RECAPTCHA_SCORE_THRESHOLD = 0.5
+
+SITE_ID = 1

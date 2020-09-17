@@ -20,7 +20,7 @@ class GenreYear:
 class MoviesView(GenreYear, ListView):
     """Список фильмов"""
     model = Movie
-    queryset = Movie.objects.filter(draft=False)
+    queryset = Movie.objects.filter(draft=False).order_by('id')
     paginate_by = 4
 
 class MovieDetailView(GenreYear, DetailView):
@@ -65,7 +65,8 @@ class FilterMoviesView(GenreYear, ListView):
             Q(year__in=self.request.GET.getlist("year")) |
             Q(genres__in=self.request.GET.getlist("genre"))
         ).distinct()
-        return queryset
+        return queryset.order_by('id')
+        """нужно ли здесь .order_by('id')"""
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -113,7 +114,7 @@ class Search(ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        return Movie.objects.filter(title__icontains=self.request.GET.get("q"))
+        return Movie.objects.filter(title__icontains=self.request.GET.get("q")).order_by('id')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

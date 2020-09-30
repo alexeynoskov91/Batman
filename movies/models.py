@@ -21,7 +21,7 @@ class Category(models.Model):
 class Actor(models.Model):
     """Актеры и режиссеры"""
     name = models.CharField("Имя", max_length=100)
-    age = models.PositiveSmallIntegerField("Возраст", default=0)
+    birthdate = models.DateField("Дата рождения", default=date.today)
     description = models.TextField("Описание")
     image = models.ImageField("Изображение", upload_to="actors/")
 

@@ -6,7 +6,7 @@ from django.views.generic.base import View
 
 from .models import Movie, Category, Actor, Genre, Rating
 from .forms import ReviewForm, RatingForm
-
+import datetime 
 
 class GenreYear:
     """Жанры и года выхода фильмов"""
@@ -54,8 +54,20 @@ class ActorView(GenreYear, DetailView):
     model = Actor
     template_name = 'movies/actor.html'
     slug_field = "name"
-
-
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['age'] = datetime.date.today().year - self.object.birthdate.year
+        return context
+    
+    # def get_context_data(self, **kwargs):
+        # kwargs['age'] = datetime.date.today().year - self.object.birthdate.year
+        # return super().get_context_data(**kwargs)
+        
+    # def Возраст(self, obj):
+        # return datetime.date.today().year - obj.birthdate.year    
+        # timezone.now()
+        
 class FilterMoviesView(GenreYear, ListView):
     """Фильтр фильмов. Когда здесь включена фильтрация, то отключен AJAX фильтрация в sidebar."""
     paginate_by = 1

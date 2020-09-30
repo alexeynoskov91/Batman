@@ -6,8 +6,6 @@ from .forms import ArticleForm
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 
-# def homepage(request):
-    # return render (request, 'homepage/batman.html')
     
 class Home(ListView):
     model = Articles
@@ -36,7 +34,7 @@ class ArticleCreateView(CustomSuccessMessageMixin, CreateView):
     form_class = ArticleForm
     success_url = reverse_lazy('edit_page')
     success_msg = 'Запись создана'
-    def get_context_data(self,**kwargs):
+    def get_context_data(self, **kwargs):
         kwargs['list_articles'] = Articles.objects.all().order_by('-id')
         return super().get_context_data(**kwargs)
         
@@ -57,6 +55,6 @@ class ArticleDeleteView(DeleteView):
     template_name = 'edit_page.html'
     success_url = reverse_lazy('edit_page')
     success_msg = 'Запись удалена'
-    def post(self,request,*args,**kwargs):
+    def post(self,request, *args, **kwargs):
         messages.success(self.request, self.success_msg)
         return super().post(request)    

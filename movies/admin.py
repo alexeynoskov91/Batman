@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-
+import datetime 
 from .models import Category, Genre, Movie, MovieShots, Actor, Rating, RatingStar, Reviews
 
 
@@ -124,8 +124,13 @@ class ActorAdmin(admin.ModelAdmin):
     list_display = ("name", "age", "get_image")
     readonly_fields = ("get_image",)
 
+    def age(self, obj):
+        return datetime.date.today().year - obj.birthdate.year
+    
+    age.short_description ="Возраст"
+    
     def get_image(self, obj):
-        return mark_safe(f'<img src={obj.image.url} width="50" height="60"')
+        return mark_safe(f'<img src={obj.image.url} width="50" height="72"')
 
     get_image.short_description = "Изображение"
 

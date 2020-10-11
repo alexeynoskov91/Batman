@@ -10,6 +10,7 @@ import datetime
 
 class GenreYear:
     """Жанры и года выхода фильмов"""
+    
     def get_genres(self):
         return Genre.objects.all()
 
@@ -23,6 +24,7 @@ class MoviesView(GenreYear, ListView):
     queryset = Movie.objects.filter(draft=False).order_by('id')
     paginate_by = 4
 
+
 class MovieDetailView(GenreYear, DetailView):
     """Полное описание фильма"""
     model = Movie
@@ -31,12 +33,14 @@ class MovieDetailView(GenreYear, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["star_form"] = RatingForm()
+        # context["star_id"] = Rating()
         context["form"] = ReviewForm()
         return context
 
 
 class AddReview(View):
     """Отзывы"""
+    
     def post(self, request, pk):
         form = ReviewForm(request.POST)
         movie = Movie.objects.get(id=pk)
@@ -68,8 +72,9 @@ class ActorView(GenreYear, DetailView):
         # return datetime.date.today().year - obj.birthdate.year    
         # timezone.now()
         
+        
 class FilterMoviesView(GenreYear, ListView):
-    """Фильтр фильмов. Когда здесь включена фильтрация, то отключен AJAX фильтрация в sidebar."""
+    """Фильтр фильмов. Когда здесь включена фильтрация, то отключена AJAX фильтрация в sidebar."""
     paginate_by = 1
 
     def get_queryset(self):
@@ -86,8 +91,10 @@ class FilterMoviesView(GenreYear, ListView):
         context["genre"] = ''.join([f"genre={x}&" for x in self.request.GET.getlist("genre")])
         return context
         
+        
 class JsonFilterMoviesView(ListView):
     """Фильтр фильмов в json"""
+    
     def get_queryset(self):
         queryset = Movie.objects.filter(
             Q(year__in=self.request.GET.getlist("year")) |
@@ -99,8 +106,10 @@ class JsonFilterMoviesView(ListView):
         queryset = list(self.get_queryset())
         return JsonResponse({"movies": queryset}, safe=False)
         
+        
 class AddStarRating(View):
     """Добавление рейтинга фильму"""
+    
     def get_client_ip(self, request):
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
@@ -113,13 +122,18 @@ class AddStarRating(View):
         form = RatingForm(request.POST)
         if form.is_valid():
             Rating.objects.update_or_create(
-                ip=self.get_client_ip(request),
-                movie_id=int(request.POST.get("movie")),
-                defaults={'star_id': int(request.POST.get("star"))}
+                ip = self.get_client_ip(request),
+                movie_id = int(request.POST.get("movie")),
+                defaults = {'star_id': int(request.POST.get("star"))}
             )
             return HttpResponse(status=201)
         else:
             return HttpResponse(status=400)
+
+    # def get_context_data(self, *args, **kwargs):
+        # context = super().get_context_data(*args, **kwargs)
+        # context["star_id"] = "star"
+        # return context   
 
 class Search(ListView):
     """Поиск фильмов"""

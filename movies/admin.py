@@ -4,21 +4,24 @@ from django.utils.safestring import mark_safe
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 import datetime 
 from .models import Category, Genre, Movie, MovieShots, Actor, Rating, RatingStar, Reviews
+from modeltranslation.admin import TranslationAdmin
 
 
 class MovieAdminForm(forms.ModelForm):
     """Форма с виджетом ckeditor"""
-    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+    description_ru = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+    description_en = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
 
     class Meta:
         model = Movie
         fields = '__all__'
-
+        # fields = ("title", "tagline", "", "", "", "", "", 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     """Категории"""
     list_display = ("id", "name", "url")
+    # list_display = ("name", "url")
     list_display_links = ("name",)
 
 
@@ -41,7 +44,7 @@ class MovieShotsInline(admin.TabularInline):
 
 
 @admin.register(Movie)
-class MovieAdmin(admin.ModelAdmin):
+class MovieAdmin(TranslationAdmin):
     """Фильмы"""
     list_display = ("title", "category", "url", "draft")
     list_filter = ("category", "year")
@@ -108,18 +111,18 @@ class MovieAdmin(admin.ModelAdmin):
 @admin.register(Reviews)
 class ReviewAdmin(admin.ModelAdmin):
     """Отзывы к фильму"""
-    list_display = ("name", "email", "parent", "movie", "id")
+    list_display = ("name", "create_date", "update_date", "email", "parent", "movie", "id")
     readonly_fields = ("name", "email")
 
 
 @admin.register(Genre)
-class GenreAdmin(admin.ModelAdmin):
+class GenreAdmin(TranslationAdmin):
     """Жанры"""
     list_display = ("name", "url")
 
 
 @admin.register(Actor)
-class ActorAdmin(admin.ModelAdmin):
+class ActorAdmin(TranslationAdmin):
     """Актеры"""
     list_display = ("name", "age", "get_image")
     readonly_fields = ("get_image",)
@@ -138,11 +141,11 @@ class ActorAdmin(admin.ModelAdmin):
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
     """Рейтинг"""
-    list_display = ("star", "ip")
+    list_display = ("star", "movie", "ip")
 
 
 @admin.register(MovieShots)
-class MovieShotsAdmin(admin.ModelAdmin):
+class MovieShotsAdmin(TranslationAdmin):
     """Кадры из фильма"""
     list_display = ("title", "movie", "get_image")
     readonly_fields = ("get_image",)

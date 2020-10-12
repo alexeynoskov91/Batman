@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-{% load account  %}	
+{% load account socialaccount %}
 
 <!-- socialaccount -->
 
@@ -11,7 +11,7 @@
 
 <h1>{% trans "Sign In" %}</h1>
 
-
+{% get_providers as socialaccount_providers %}
 
 {% if socialaccount_providers %}
 <p>{% blocktrans with site.name as site_name %}Please sign in with one

@@ -175,6 +175,7 @@ nav {
 	background-color: rgba(33, 35, 87, 0.3);
 	border: 4px solid #2d508f;
 	color: #ffffff;
+	border-radius: 10px;
 }
 
 nav:hover {

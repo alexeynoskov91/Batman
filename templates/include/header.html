@@ -1,23 +1,23 @@
 {% load i18n movie_tag %}
-<header class="header">
-    <div class="container-fluid px-lg-5">
+<header class="">
+    <div class="">
         <!-- nav -->
-        <nav class="py-4">
+        <nav class="">
             <div id="logo">
-                <h1><a href="index.html" class="editContent"
+                <h1><a href="javascript:history.back()" class="t"
                        style="outline: none; outline-offset: -2px; cursor: inherit; color: rgb(255, 255, 255); font-size: 40px; background-color: rgba(0, 0, 0, 0); font-family: Source Sans Pro;, sans-serif;">BatmanMovie</a>
                 </h1>
             </div>
 
-            <label for="drop" class="toggle">Menu</label>
+            <label for="drop" class="">Menu</label>
             <input type="checkbox" id="drop">
-            <ul class="menu mt-2">
+            <ul class="">
                 <li class="active"><a href="index.html">Главная</a></li>
                 <li>
                     <!-- First Tier Drop Down -->
-                    <label for="drop-2" class="toggle">Категории <span
-                            class="fa fa-angle-down" aria-hidden="true"></span> </label>
-                    <a href="#">Категории <span class="fa fa-angle-down"
+                    <label for="drop-2" class="">Категории <span
+                            class="" aria-hidden="true"></span> </label>
+                    <a href="#">Категории <span class=""
                                                 aria-hidden="true"></span></a>
                     <input type="checkbox" id="drop-2">
                     <ul>
@@ -27,10 +27,25 @@
                         {% endfor %}
                     </ul>
                 </li>
-                <li><a href="contact.html"
-                       style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Вход</a>
+				<li>
+                    {% if user.is_authenticated %}
+                        <span>{{ user.username }}</span>
+                        <a href="{% url 'account_logout' %}"
+                           style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">
+                            Выход
+                        </a>
+                    {% else %}
+                        <a href="{% url 'account_login' %}"
+                           style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">
+                            Вход
+                        </a>
+                         <a href="{% url 'account_signup' %}"
+                           style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">
+                            Регистрация
+                        </a>
+                    {% endif %}
                 </li>
-				</li>
+
 				<form action="{% url 'set_language' %}" method="post">{% csrf_token %}
                         <input name="next" type="hidden" value="{{ redirect_to }}">
                         <select name="language">
@@ -54,12 +69,9 @@
 </header>
 <!-- //header -->
 <!--/banner-->
-<div class="banner-info">
-    <p class="editContent">лучший сайт про бетмена</p>
-    <h3 class="mb-4 editContent">Все о кино про бетмена</h3>
-    <div class="ban-buttons">
-
-
+<div class="">
+    <h3 class="">Лучший сайт про бетмена. Все о кино про бетмена</h3>
+    <div class="">
     </div>
 </div>
 <!--// banner-inner -->
